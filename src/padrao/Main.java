@@ -1,11 +1,7 @@
 package padrao;
 
-import padrao.Curso;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Main {
@@ -26,9 +22,17 @@ public class Main {
                 .map(c -> c.getAlunos())
                 .forEach(System.out::println);
 
-        Optional<Curso> optionalCurso = cursos.stream()
-                .filter(c -> c.getAlunos() > 50)
-                .findFirst();
+        OptionalDouble optionalCurso = cursos.stream().
+                mapToInt(c -> c.getAlunos()).
+                average();
+        System.out.println(optionalCurso);
 
+        cursos.stream().
+                mapToInt(c -> c.getAlunos()).
+                average();
+
+        List<Curso> cursosFiltrados = cursos.stream()
+                .filter(c -> c.getAlunos() > 50)
+                .collect(Collectors.toList());
     }
 }
